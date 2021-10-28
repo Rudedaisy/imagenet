@@ -1,0 +1,46 @@
+# Prepare dataset and network configuration.
+task: "imagenet"
+data: "./data/ImageNetLMDB_NAS"
+lmdb: 1
+workers: 12
+# Data augmentation
+augmentation: "autoaugment"
+# Include network config.
+prototxt: "target/reference_models/mnasnet-a1.prototxt"
+# Input resolution
+image_size: 224
+# Number of classes
+num_classes: 1001
+# Prepare hyperparameters for training
+optimizer: sgd
+# Learning rate schedule
+lr_schedule: cosine
+# Total batch size and LR on all GPUs.
+train_batch_size: 256
+val_batch_size: 200
+lr: 0.256
+epochs: 100
+start_epochs: 0
+# This is used to set the batchnorm settings.
+bn_momentum: 0.01
+bn_epsilon: 1e-3
+# Config SE options.
+se_intra_activation_fn: relu
+se_output_activation_fn: sigmoid
+# Exponential Moving Average.
+EMA: 0.999
+use_num_updates: 1
+# Default regularization. This is configured for layers without a user-defined L2 regularization strength.
+regularizer: 'l2'
+weight_decay: 1e-5
+# Configure other regularization
+drop_connect: 0.0
+label_smoothing: 0.1
+# Report frequency
+report_freq: 100
+# Distributed options. Use 0, 1 as boolean variable.
+multiprocessing_distributed: 0
+# CUDNN deterministic:
+cudnn_deterministic: 0
+# AMP (Auto mixed precision)
+amp: 0
